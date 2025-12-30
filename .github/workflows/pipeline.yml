@@ -1,43 +1,35 @@
-name: "Estrutura de Diretórios e Arquivos"
+name: Hello GitHub Actions
+
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
-    
-env:
-  NODE_VERSION: '18'
 
 jobs:
-  demonstrando-estrutura:
-    name: "Demonstrando Estrutura Básica"
+  hello-job:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout do Código
-        uses: actions/checkout@v4
+    - name: Checkout Código
+      uses: actions/checkout@v4
 
-      - name: Mostrar estrutura .github/workflows
-        run: |
-          echo "== ESTRUTURA DE DIRETORIOS E ARQUIVOS EM .github/workflows =="
-          ls -la .github/workflows
-          echo ""
-          echo "Total de workflows: $(ls -1 .github/workflows | wc -l)"
+    - name: Executar Hello world
+      run: echo "Hello, GitHub Actions!"
 
-      - name: Elementos obrigatórios
-        run: |
-          echo "== ELEMENTOS OBRIGATÓRIOS DE UM WORKFLOW =="
-          echo "1. name: Nome do workflow"
-          echo "2. on: Evento(s) que disparam o workflow"
-          echo "3. jobs: Definição dos trabalhos a serem executados"
-          echo "4. runs-on: Ambiente onde o trabalho será executado"
-          echo "5. steps: Passos individuais dentro de um trabalho"
-          echo ""
-          echo "Total de elementos obrigatorios: 5"
+    - name: Mostrar informações do sistema
+      run: |
+        echo "Sistema Operacional: ${{ runner.os }}"
+        echo "Diretório atual: $(pwd)"
+        echo "Data Atual: $(date)"
+        echo "Usuário: $(whoami)"
+        
+    - name: Listar arquivos do repositorio
+      run: ls -la
 
-      - name: Váriaveis e Contexto
-        run: |
-          echo "== VARIÁVEIS E CONTEXTO NO WORKFLOW =="
-          echo "Variáveis env: ${{ env.NODE_VERSION }}"
-          echo "1. env: Define variáveis de ambiente para o workflow"
-          echo "2. contextos: Acesso a informações sobre o workflow, job, runner, steps etc"
-          echo ""
-          echo "Total de variaveis e contextos: 2"
+    - name: Comandos Múltiplos
+      run: |
+        echo "Este é o primeiro lab para treinar o aprendizado de GitHub Actions."
+        echo "Workflow executado com sucesso"
+        echo "Pronto para o próximo passo!"
