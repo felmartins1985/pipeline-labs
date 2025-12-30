@@ -29,7 +29,8 @@ jobs:
     - name: Upload relatório análise
       run: |
         echo "Fazendo upload do relatório..."
-        echo "Relatório de análise gerado em $(date)" > analysis-report.txt
+        echo "Relatório de análise gerado em $(date)" > analysis-report.txt  
+      #Essa linha acima cria um arquivo de texto com uma mensagem e a data atual temporariamente durante a execução do job
         echo "Relatório salvo"
 
   # Job 2: Testes unitários (executa em paralelo com code-analysis)
@@ -83,10 +84,12 @@ jobs:
         echo "Gerando artefatos..."
         mkdir -p build
         echo "Aplicação compilada em $(date)" > build/app.jar
+      #salvo o texto dentro da pasta build
         echo "Artefatos gerados"
     
     - name: Upload artefatos
       uses: actions/upload-artifact@v4
       with:
         name: build-artifacts
+        # pode ter qualquer nome. é apenas um rótulo para identificar o artefato. Aparece na seção artifacts do workflow
         path: build/
