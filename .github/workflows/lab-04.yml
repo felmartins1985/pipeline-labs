@@ -33,3 +33,13 @@ jobs:
             repo: context.repo.repo,
             body: 'Obrigado por reportar esta issue! Nossa equipe irá analisá-la em breve.'
           })
+
+#Quando você cria uma issue no GitHub:
+#Vai em Issues → New issue
+#Escreve título: "Corrigir erro no login"
+#Descreve o problema
+#Submete
+# O que acontece:
+# O workflow lab-04.yml é disparado automaticamente
+# Mostra informações da issue (número, título, autor)
+#  Responde automaticamente (entrar na issue para verificar no github) com: "Obrigado por reportar esta issue! Nossa equipe irá analisá-la em breve."
