@@ -203,3 +203,51 @@ jobs:
           name: ${{ format('app-{0}-v{1}-{2}', needs.outputs-entre-steps.outputs.ambiente, needs.outputs-entre-steps.outputs.versao, github.sha) }}
           path: build/
           retention-days: 5
+
+
+# $GITHUB_OUTPUT é uma variável de ambiente especial do GitHub Actions que aponta para um arquivo temporário usado para passar dados entre steps e jobs.
+
+# Para Que Serve
+# Compartilhar valores calculados em um step para uso posterior
+# Comunicação entre steps do mesmo job
+# Exportar dados de um job para outros jobs (via outputs)
+
+
+# ...existing code...
+
+# ============================================================================
+# RESUMO: ONDE $GITHUB_OUTPUT É USADO NESTE WORKFLOW
+# ============================================================================
+#
+# 1. ESCRITA (Salvando outputs):
+#    - Linha 66: echo "version=$VERSION" >> $GITHUB_OUTPUT
+#    - Linha 77: echo "env_name=$ENV_NAME" >> $GITHUB_OUTPUT
+#
+# 2. LEITURA - Mesmo Job (steps.<id>.outputs.<variavel>):
+#    - Linhas 83-85: Acessa outputs dos steps anteriores no mesmo job
+#      ${{ steps.gerar-versao.outputs.version }}
+#      ${{ steps.definir-ambiente.outputs.env_name }}
+#
+# 3. EXPORTAÇÃO - Para Outros Jobs (job outputs):
+#    - Linhas 53-54: Define outputs do job para compartilhar com outros jobs
+#      versao: ${{ steps.gerar-versao.outputs.version }}
+#      ambiente: ${{ steps.definir-ambiente.outputs.env_name }}
+#
+# 4. LEITURA - Outros Jobs (needs.<job-id>.outputs.<variavel>):
+#    - Linha 118: format() usa outputs do job anterior
+#    - Linha 128: Deploy condicional usa outputs
+#    - Linhas 195-196: Arquivo de build usa outputs
+#    - Linha 205: Nome do artefato usa outputs
+#      ${{ needs.outputs-entre-steps.outputs.versao }}
+#      ${{ needs.outputs-entre-steps.outputs.ambiente }}
+#
+# FLUXO DE DADOS:
+# Step (escrita) → $GITHUB_OUTPUT → Step Output → Job Output → Needs Context
+# ============================================================================
+
+# $GITHUB_OUTPUT é uma variável de ambiente especial do GitHub Actions que aponta para um arquivo temporário usado para passar dados entre steps e jobs.
+
+# Para Que Serve
+# Compartilhar valores calculados em um step para uso posterior
+# Comunicação entre steps do mesmo job
+# Exportar dados de um job para outros jobs (via outputs)
