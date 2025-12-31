@@ -103,3 +103,7 @@ jobs:
       if: always()
       run: |
         echo "Limpeza final sempre executada"
+
+
+# Escopo do always() e failure()
+# Ambas as funções avaliam TODOS os steps anteriores no job, não apenas o step imediatamente anterior.
