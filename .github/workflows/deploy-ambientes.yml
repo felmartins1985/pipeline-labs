@@ -91,3 +91,28 @@ jobs:
         run: |
           echo "Enviando notificação de deploy para ${{ vars.API_URL }}"
           echo "Versão implantada: ${{ vars.APP_NAME }} em ${{ vars.ENVIRONMENT }}"
+
+# ============================================================================
+# ONDE CONFIGURAR AS VARIÁVEIS NO GITHUB
+# ============================================================================
+#
+# 1️⃣ VARIÁVEIS GLOBAIS DO REPOSITÓRIO (compartilhadas por todos os ambientes):
+#    - Acesse: Settings → Secrets and variables → Actions → Variables (aba)
+#    - Clique em "New repository variable"
+#    - Exemplos: APP_NAME, DEFAULT_REGION, DEFAULT_TIMEOUT, NODE_VERSION
+#
+# 2️⃣ VARIÁVEIS ESPECÍFICAS DE ENVIRONMENT (dev, staging, production):
+#    - Acesse: Settings → Environments
+#    - Clique no environment desejado (dev, staging, production)
+#    - Em "Environment variables", clique em "Add variable"
+#    - Exemplos: ENVIRONMENT, API_URL, DATABASE_NAME, DEBUG_MODE, MAX_CONNECTIONS
+#
+# 3️⃣ SECRETS (dados sensíveis como senhas e tokens):
+#    - Variáveis de repositório: Settings → Secrets and variables → Actions → Secrets (aba)
+#    - Variáveis de environment: Settings → Environments → [environment] → Environment secrets
+#    - Use ${{ secrets.NOME_SECRET }} no workflow
+#
+# DIFERENÇA:
+# - vars.* = Variáveis públicas (podem ser vistas nos logs)
+# - secrets.* = Variáveis sensíveis (mascaradas nos logs como ***)
+# ============================================================================
